@@ -4,9 +4,12 @@ import 'package:notes_app/src/app/viewModels/home_view_model.dart';
 import 'package:notes_app/src/app/views/add_new_note_screen.dart';
 import 'package:notes_app/src/app/widgets/header_section.dart';
 import 'package:notes_app/src/app/widgets/note_card.dart';
+import 'package:notes_app/src/app/widgets/search_bar.dart';
+import 'package:notes_app/src/themes/themes.dart';
 import 'package:provider/provider.dart';
 
 import '../../themes/color_utils.dart';
+import '../models/note.dart';
 import '../widgets/icon_container.dart';
 import '../widgets/svg_icons.dart';
 
@@ -48,40 +51,75 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            HeaderSection(
-              left: Text(
-                'Notes',
-                style: TextStyle(
-                    fontSize: 43,
-                    color: Theme.of(context).colorScheme.onBackground),
-              ),
-              right: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  IconContainer(icon: searchIcon),
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  IconContainer(icon: infoLight),
-                ],
-              ),
-            ),
+            Observer(builder: (_) {
+              return !_viewModel.searchModeOn
+                  ? HeaderSection(
+                      left: Text(
+                        'Notes',
+                        style: TextStyle(
+                            fontSize: 43,
+                            color: Theme.of(context).colorScheme.onBackground),
+                      ),
+                      right: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            child: IconContainer(icon: searchIcon),
+                            onTap: () {
+                              _viewModel.setSearchMode();
+                            },
+                          ),
+                          const SizedBox(
+                            width: 15,
+                          ),
+                          IconContainer(icon: infoLight),
+                        ],
+                      ),
+                    )
+                  : SearchBar();
+            }),
             Expanded(
               child: Observer(
                 builder: (_) {
-                  if (_viewModel.notes.isEmpty) {
+                  List<Note> notes = _viewModel.searchModeOn
+                      ? _viewModel.filteredNotes
+                      : _viewModel.notes;
+                  if (notes.isEmpty) {
                     return Center(
-                      child: Image.asset(
-                        'assets/images/empty_notes.png',
-                        width: 250,
-                        height: 250,
-                      ),
+                      child: _viewModel.searchModeOn
+                          ? Column(
+                              children: [
+                                Image.asset(
+                                  'assets/images/empty_search.png',
+                                  width: 250,
+                                  height: 250,
+                                ),
+                                Text(
+                                  'File not found. Try searching again.',
+                                  style: TextStyle(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onButton,
+                                      fontWeight: FontWeight.w300),
+                                )
+                              ],
+                            )
+                          : Image.asset(
+                              'assets/images/empty_notes.png',
+                              width: 250,
+                              height: 250,
+                            ),
                     );
                   }
                   return ListView.builder(
-                    itemCount: _viewModel.notes.length,
+                    itemCount: _viewModel.searchModeOn
+                        ? _viewModel.filteredNotes.length
+                        : _viewModel.notes.length,
                     itemBuilder: (context, index) {
+                      Note note = _viewModel.searchModeOn
+                          ? _viewModel.filteredNotes[index]
+                          : _viewModel.notes[index];
                       return Dismissible(
                         background: Padding(
                           padding: const EdgeInsets.only(
@@ -102,11 +140,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         onDismissed: (direction) {
-                          _viewModel.removeNote(_viewModel.notes[index].id);
+                          _viewModel.removeNote(note.id);
                         },
-                        key: Key(_viewModel.notes[index].id),
+                        key: Key(note.id),
                         child: NoteCard(
-                          note: _viewModel.notes[index],
+                          note: note,
                         ),
                       );
                     },

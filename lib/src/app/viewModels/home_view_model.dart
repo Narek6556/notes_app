@@ -11,8 +11,19 @@ abstract class HomeViewModelBase with Store {
   @observable
   ObservableList<Note> notes = ObservableList<Note>();
 
+  @observable
+  String searchTitle = '';
+
+  @observable
+  bool searchModeOn = false;
+
   @computed
-  List<String> get notes
+  ObservableList<Note> get filteredNotes {
+    return ObservableList.of(
+      notes.where((note) =>
+          note.title.toLowerCase().contains(searchTitle.toLowerCase())),
+    );
+  }
 
   @action
   void removeNote(String id) {
@@ -23,5 +34,10 @@ abstract class HomeViewModelBase with Store {
   @action
   getNotes() {
     notes = ObservableList.of(NotesPrefs.getAllNotes());
+  }
+
+  @action
+  setSearchMode() {
+    searchModeOn = !searchModeOn;
   }
 }

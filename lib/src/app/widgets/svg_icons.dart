@@ -10,3 +10,6 @@ SvgPicture emptyNotes =
     SvgPicture.asset('assets/images/empty_notes-optimized.svg');
 SvgPicture emptySearch =
     SvgPicture.asset('assets/images/empty_search-optimized.svg');
+SvgPicture successIcon = SvgPicture.asset('assets/icons/success.svg');
+SvgPicture errorIcon = SvgPicture.asset('assets/icons/error.svg');
+SvgPicture closeIcon = SvgPicture.asset('assets/icons/close.svg');

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:notes_app/src/themes/themes.dart';
+
+import '../../app/widgets/svg_icons.dart';
 
 class ToastMessage extends StatelessWidget {
   ToastMessage({super.key, required this.isSuccess, required this.message});
   final bool isSuccess;
-  final Widget successIcon = SvgPicture.asset('assets/icons/success.svg');
-  final Widget errorIcon = SvgPicture.asset('assets/icons/error.svg');
-  final Widget closeIcon = SvgPicture.asset('assets/icons/close.svg');
+
   final String message;
 
   @override

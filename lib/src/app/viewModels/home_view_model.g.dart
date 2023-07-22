@@ -25,6 +25,38 @@ mixin _$HomeViewModel on HomeViewModelBase, Store {
     });
   }
 
+  late final _$searchTitleAtom =
+      Atom(name: 'HomeViewModelBase.searchTitle', context: context);
+
+  @override
+  String get searchTitle {
+    _$searchTitleAtom.reportRead();
+    return super.searchTitle;
+  }
+
+  @override
+  set searchTitle(String value) {
+    _$searchTitleAtom.reportWrite(value, super.searchTitle, () {
+      super.searchTitle = value;
+    });
+  }
+
+  late final _$searchModeOnAtom =
+      Atom(name: 'HomeViewModelBase.searchModeOn', context: context);
+
+  @override
+  bool get searchModeOn {
+    _$searchModeOnAtom.reportRead();
+    return super.searchModeOn;
+  }
+
+  @override
+  set searchModeOn(bool value) {
+    _$searchModeOnAtom.reportWrite(value, super.searchModeOn, () {
+      super.searchModeOn = value;
+    });
+  }
+
   late final _$HomeViewModelBaseActionController =
       ActionController(name: 'HomeViewModelBase', context: context);
 
@@ -51,9 +83,22 @@ mixin _$HomeViewModel on HomeViewModelBase, Store {
   }
 
   @override
+  dynamic setSearchMode() {
+    final _$actionInfo = _$HomeViewModelBaseActionController.startAction(
+        name: 'HomeViewModelBase.setSearchMode');
+    try {
+      return super.setSearchMode();
+    } finally {
+      _$HomeViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
-notes: ${notes}
+notes: ${notes},
+searchTitle: ${searchTitle},
+searchModeOn: ${searchModeOn}
     ''';
   }
 }
