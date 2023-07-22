@@ -58,6 +58,7 @@ class _AddNewNoteScreenState extends State<AddNewNoteScreen> {
                               description: _viewModel.description,
                               color: '#FFFFFF',
                             ),
+                            screenName: 'add_new_note_screen',
                           ),
                         ),
                       );

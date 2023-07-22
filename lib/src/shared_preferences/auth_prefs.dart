@@ -7,6 +7,7 @@ import '../auth/models/user_model.dart';
 enum StoreKeys {
   users,
   token,
+  themeMode,
 }
 
 class AuthPrefs {
@@ -69,6 +70,15 @@ class AuthPrefs {
 
   static removeUserId(String id) {
     _prefs.remove(StoreKeys.token.toString());
+  }
+
+  static setTheme(bool isDark) {
+    _prefs.setBool(StoreKeys.themeMode.toString(), isDark);
+  }
+
+  static bool getThemeMode() {
+    bool? isDark = _prefs.getBool(StoreKeys.themeMode.toString());
+    return isDark ?? true;
   }
 
   static cleanAuth() {

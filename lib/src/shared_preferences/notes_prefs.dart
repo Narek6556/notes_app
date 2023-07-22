@@ -7,6 +7,7 @@ import '../app/models/note.dart';
 
 enum NoteKeys {
   notes,
+  themeMode,
 }
 
 class NotesPrefs {
@@ -40,8 +41,6 @@ class NotesPrefs {
       for (int i = 0; i < notesString.length; i++) {
         Note storedNote = Note.fromJson(jsonDecode(notesString[i]));
         if (storedNote.id == note.id) {
-          print('Old title -> ${storedNote.title}');
-          print('New title -> ${note.title}');
           notesString[i] = jsonEncode(note.toJson());
         }
       }

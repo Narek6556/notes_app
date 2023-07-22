@@ -77,7 +77,10 @@ class _AuthScreenState extends State<AuthScreen> {
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
-                        color: Theme.of(context).colorScheme.textButton,
+                        color: Theme.of(context).colorScheme.brightness ==
+                                Brightness.dark
+                            ? Theme.of(context).colorScheme.onBackground
+                            : Theme.of(context).colorScheme.textButton,
                       ),
                     ),
                   ),

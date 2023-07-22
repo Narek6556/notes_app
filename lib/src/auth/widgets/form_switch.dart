@@ -61,7 +61,8 @@ class _ButtonSwitchState extends State<FormSwitch> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => HomeScreen()),
+                              builder: (context) => const HomeScreen(),
+                            ),
                           );
                         }
                       }
@@ -94,9 +95,9 @@ class _ButtonSwitchState extends State<FormSwitch> {
                         ));
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         if (result) {
-                          _viewModel.username = '';
-                          _viewModel.email = '';
-                          _viewModel.password = '';
+                          // _viewModel.username = '';
+                          // _viewModel.email = '';
+                          // _viewModel.password = '';
                           _viewModel.setLoginFormState(FormMode.login);
                         }
                       }

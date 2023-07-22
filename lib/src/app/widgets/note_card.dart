@@ -19,7 +19,10 @@ class NoteCard extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => NoteDetailsScreen(note: note)),
+                builder: (context) => NoteDetailsScreen(
+                      note: note,
+                      screenName: 'note_card',
+                    )),
           );
         },
         child: Container(

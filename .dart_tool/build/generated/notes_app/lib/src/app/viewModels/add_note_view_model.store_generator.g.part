@@ -52,6 +52,17 @@ mixin _$AddNewNoteViewModel on AddNewNoteViewModelBase, Store {
   }
 
   @override
+  void updateNote(Note note) {
+    final _$actionInfo = _$AddNewNoteViewModelBaseActionController.startAction(
+        name: 'AddNewNoteViewModelBase.updateNote');
+    try {
+      return super.updateNote(note);
+    } finally {
+      _$AddNewNoteViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void removeNote(String id) {
     final _$actionInfo = _$AddNewNoteViewModelBaseActionController.startAction(
         name: 'AddNewNoteViewModelBase.removeNote');

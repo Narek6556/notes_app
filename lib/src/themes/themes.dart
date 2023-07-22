@@ -6,7 +6,6 @@ class AppThemes {
     final ThemeData lightTheme = ThemeData.light();
 
     return lightTheme.copyWith(
-      brightness: Brightness.dark,
       colorScheme: ColorScheme(
         brightness: Brightness.light,
         primary: AppColors.lightColors[ColorNames.primary]!,
@@ -26,7 +25,6 @@ class AppThemes {
 
   static ThemeData dark() {
     final ThemeData darkTheme = ThemeData.dark();
-    print(AppColors.darkColors[ColorNames.error]!);
     return darkTheme.copyWith(
       scaffoldBackgroundColor: AppColors.darkColors[ColorNames.background]!,
       colorScheme: ColorScheme(

@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mobx/mobx.dart';
 
@@ -10,22 +9,22 @@ class AppState = AppStateBase with _$AppState;
 
 abstract class AppStateBase with Store {
   @observable
-  ThemeMode themeMode = ThemeMode.dark;
+  bool isDark = AuthPrefs.getThemeMode();
 
   @observable
-  SystemUiOverlayStyle statusBarMode = SystemUiOverlayStyle.dark;
+  SystemUiOverlayStyle statusBarMode = SystemUiOverlayStyle.light;
 
   @observable
   bool isLoggedIn = AuthPrefs.getUserId();
 
   @action
   void setThemeMode() {
-    if (ThemeMode.dark == themeMode) {
-      themeMode = ThemeMode.light;
-      statusBarMode = SystemUiOverlayStyle.light;
-    } else {
-      themeMode = ThemeMode.dark;
+    if (isDark) {
+      isDark = false;
       statusBarMode = SystemUiOverlayStyle.dark;
+    } else {
+      isDark = true;
+      statusBarMode = SystemUiOverlayStyle.light;
     }
   }
 }

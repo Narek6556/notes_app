@@ -48,12 +48,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(ThemeMode.system == ThemeMode.light);
     return MaterialApp(
-      title: 'Note App',
+      title: 'Notes App',
       theme: AppThemes.light(),
       darkTheme: AppThemes.dark(),
       debugShowCheckedModeBanner: false,
-      themeMode: Provider.of<AppState>(context).themeMode,
+      themeMode: ThemeMode.dark,
       home: AnnotatedRegion<SystemUiOverlayStyle>(
         value: Provider.of<AppState>(context).statusBarMode,
         child: Provider.of<AppState>(context).isLoggedIn

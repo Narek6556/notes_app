@@ -9,9 +9,14 @@ import '../widgets/header_section.dart';
 import 'edit_note_screen.dart';
 
 class NoteDetailsScreen extends StatefulWidget {
-  const NoteDetailsScreen({super.key, required this.note});
+  const NoteDetailsScreen({
+    super.key,
+    required this.note,
+    required this.screenName,
+  });
 
   final Note note;
+  final String screenName;
 
   @override
   State<NoteDetailsScreen> createState() => _NoteDetailsScreenState();
@@ -44,12 +49,17 @@ class _NoteDetailsScreenState extends State<NoteDetailsScreen> {
               right: GestureDetector(
                 child: IconContainer(icon: pencil),
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => EditNoteScreen(note: widget.note),
-                    ),
-                  );
+                  //TODO: check if screen was redirected from AddNewNote then redirect it back
+                  if (widget.screenName == 'add_new_note_screen') {
+                    Navigator.of(context).pop();
+                  } else {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => EditNoteScreen(note: widget.note),
+                      ),
+                    );
+                  }
                 },
               ),
             ),
@@ -57,6 +67,7 @@ class _NoteDetailsScreenState extends State<NoteDetailsScreen> {
               padding:
                   const EdgeInsets.symmetric(horizontal: 24.0, vertical: 20),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     widget.note.title,

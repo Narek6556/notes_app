@@ -59,6 +59,7 @@ class _EditNoteScreenState extends State<EditNoteScreen> {
                               description: _viewModel.description,
                               color: '#FFFFFF',
                             ),
+                            screenName: 'edit_note_screen',
                           ),
                         ),
                       );

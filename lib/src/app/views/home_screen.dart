@@ -72,7 +72,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 builder: (_) {
                   if (_viewModel.notes.isEmpty) {
                     return Center(
-                      child: emptyNotes,
+                      child: Image.asset(
+                        'assets/images/empty_notes.png',
+                        width: 250,
+                        height: 250,
+                      ),
                     );
                   }
                   return ListView.builder(
